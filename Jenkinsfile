@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven3'
+    }
+
     environment {
         PROJECT_NAME = 'medicare'
     }
@@ -49,7 +53,7 @@ pipeline {
         stage('✅ Verify Deployment') {
             steps {
                 echo '========================================='
-                echo '  Checking if containers are running...'
+                echo '  Checking containers are running...'
                 echo '========================================='
                 bat 'docker ps'
             }
@@ -61,8 +65,6 @@ pipeline {
             echo '============================================='
             echo '  ✅ BUILD SUCCESSFUL!'
             echo '  Medicare app deployed successfully!'
-            echo '  Frontend: http://localhost'
-            echo '  Backend:  http://localhost:8080'
             echo '============================================='
         }
         failure {
