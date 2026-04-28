@@ -1,0 +1,41 @@
+services:
+
+  medicare-db:
+    image: mysql:8.0
+    container_name: medicare-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: medicare
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  medicare-backend:
+    build: ./medicare-backend
+    container_name: medicare-backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: medicare-db
+      DB_USER: root
+      DB_PASS: root
+    depends_on:
+      medicare-db:
+        condition: service_healthy
+    restart: on-failure
+
+  medicare-frontend:
+    build: ./medicare-frontend
+    container_name: medicare-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - medicare-backend
+
+volumes:
+  mysql_data:
