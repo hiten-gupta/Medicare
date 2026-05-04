@@ -71,9 +71,10 @@
         </dependency>
 
         <!-- Lombok — removes boilerplate (getters, setters, constructors) -->
-        <dependency>
+                <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
             <optional>true</optional>
         </dependency>
 
@@ -106,7 +107,7 @@
                     <path>
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
-                        <version>1.18.30</version>
+                        <version>1.18.36</version>
                     </path>
                 </annotationProcessorPaths>
             </configuration>
